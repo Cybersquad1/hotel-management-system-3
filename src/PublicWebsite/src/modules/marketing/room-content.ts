@@ -1,36 +1,31 @@
-﻿import {EventAggregator} from 'aurelia-event-aggregator'
-import {autoinject, bindable} from 'aurelia-framework';
+﻿import {autoinject, bindable} from 'aurelia-framework';
 import {HttpClient} from 'aurelia-fetch-client';
-import {Events} from '../../messages/events';
+import ReduxThunk from 'redux-thunk'
+import { createLogger } from 'redux-logger'
+import { createStore, applyMiddleware } from 'redux';
+import { RoomContentApiClient } from './room-content.apiClient';
+import { store } from '../../redux/store';
 import './room-content.css'
+
+
 
 @autoinject()
 export class RoomContent {
+	private roomTypeIds: Array<number>;
 	content;
 
-	constructor(private messageBus: EventAggregator, private apiClient: HttpClient) {
-		this.messageBus.subscribe(Events.RoomTypeIdsAvailable, response => {
-			this.makeApiRequest(response);
-		});
+	constructor(private apiClient: HttpClient) {
+		console.log("room-content");
+		store.subscribe(this.makeApiRequest)
 	}
 
-	makeApiRequest(response) {
-		var idString = '';
-		response.map((value, i) => {
-			idString += 'ids=' + value;
-			if (response.lastIndexOf(response.length) !== i) {
-				idString += '&';
-			}
-		});
+	makeApiRequest() {
+		let roomTypeIds = store.getState().roomTypeIds;
 
-		let url = 'http://localhost:54831/api/collateral/roomtypes?' + idString;
-		this.apiClient
-			.fetch(url)
-			.then(response => {
-				return response.json();
-			})
-			.then(data => {
-				this.content = data;
-			});
+		if(roomTypeIds != undefined || roomTypeIds != this.roomTypeIds){
+			var apiClient = new RoomContentApiClient()
+			apiClient.fetch(roomTypeIds);
+			this.roomTypeIds = roomTypeIds;
+		}
 	}
 }

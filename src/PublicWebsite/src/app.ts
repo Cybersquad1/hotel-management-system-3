@@ -1,8 +1,17 @@
-import {Aurelia} from 'aurelia-framework';
+import {Aurelia, autoinject} from 'aurelia-framework';
 import {Router, RouterConfiguration} from 'aurelia-router';
+import { Store } from 'redux';
+import { IStore, store } from './redux';
 
+@autoinject()
 export class App {
   router: Router;
+  store: Store<IStore>;
+  
+  constructor() {
+    console.log(store);
+    this.store = store;
+  }
 
   configureRouter(config: RouterConfiguration, router: Router) {
     config.title = 'Hotel Management System';

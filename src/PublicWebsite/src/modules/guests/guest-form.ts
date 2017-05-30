@@ -3,12 +3,12 @@ import {HttpClient, json} from 'aurelia-fetch-client';
 import {EventAggregator} from 'aurelia-event-aggregator';
 import {Events} from '../../messages/events';
 var uniqid = require('uniqid');
-import shoppingCart from "../../shoppingCart";
+import {ShoppingCart } from "../../shoppingCart";
 
 @autoinject()
 export class Guests {
 	guestUuid = uniqid();
-  reservationUuid = shoppingCart.reservationUuid;
+  reservationUuid = ''
 	title = 'Mr';
 	firstName = 'John';
 	lastName = 'Smith';
@@ -28,7 +28,7 @@ export class Guests {
     let url = 'http://localhost:50551/api/guests';
     let body = {
 	      "guestUuid": this.guestUuid,
-	      "reservationUuid": shoppingCart.reservationUuid,
+	      "reservationUuid": 'shoppingCart.reservationUuid',
 	      "title": this.title,
 	      "firstName": this.firstName,
 	      "lastName": this.lastName,

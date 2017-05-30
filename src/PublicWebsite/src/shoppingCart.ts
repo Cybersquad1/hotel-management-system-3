@@ -1,9 +1,8 @@
-﻿export default {
-	checkin: new Date(),
-	checkout: new Date(),
-	reservationUuid: '',
-	roomTypeIds: '',
-	roomTypeId: '',
-	numberOfNights: 0
+﻿export interface ShoppingCart {
+	checkin: Date;
+	checkout: Date;
+	reservationUuid: string;
+	roomTypeId: number;
+	numberOfNights: number;
 }
 

@@ -2,7 +2,7 @@
 import {HttpClient} from 'aurelia-fetch-client';
 import {EventAggregator} from 'aurelia-event-aggregator';
 import {Events} from '../../messages/events';
-import shoppingCart from "../../shoppingCart";
+// import shoppingCart from "../../shoppingCart";
 var uniqid = require('uniqid');
 
 
@@ -23,22 +23,22 @@ export class Search {
 		});
 	}
 
-	checkAvailability() {
-		shoppingCart.checkin = new Date(this.checkin);
-		shoppingCart.checkout = new Date(this.checkout);
-		shoppingCart.reservationUuid = uniqid();
-		shoppingCart.numberOfNights = new Date(shoppingCart.checkout.getTime() - shoppingCart.checkin.getTime()).getUTCDate() -1;
+	// checkAvailability() {
+	// 	shoppingCart.checkin = new Date(this.checkin);
+	// 	shoppingCart.checkout = new Date(this.checkout);
+	// 	shoppingCart.reservationUuid = uniqid();
+	// 	shoppingCart.numberOfNights = new Date(shoppingCart.checkout.getTime() - shoppingCart.checkin.getTime()).getUTCDate() -1;
 
-		let url = 'http://localhost:50673/api/' + 'RoomTypeAvailability?dates.startDate=' + this.checkin + '&dates.endDate=' + this.checkout;
+	// 	let url = 'http://localhost:50673/api/' + 'RoomTypeAvailability?dates.startDate=' + this.checkin + '&dates.endDate=' + this.checkout;
 
-		this.httpClient
-			.fetch(url)
-			.then(response => {
-				return response.json();
-			})
-			.then(data => {
-				console.log(data);
-				this.messageBus.publish(Events.RoomTypeIdsAvailable, data);
-			});
-	}
+	// 	this.httpClient
+	// 		.fetch(url)
+	// 		.then(response => {
+	// 			return response.json();
+	// 		})
+	// 		.then(data => {
+	// 			console.log(data);
+	// 			this.messageBus.publish(Events.RoomTypeIdsAvailable, data);
+	// 		});
+	// }
 }
