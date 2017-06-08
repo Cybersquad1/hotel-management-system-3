@@ -78,7 +78,7 @@ let config = generateConfig(
     },
     output: {
       path: outDir
-    },
+    }
   },
 
   /**

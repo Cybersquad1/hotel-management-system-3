@@ -1,4 +1,4 @@
-﻿import {Aurelia} from 'aurelia-framework';
+﻿import { Aurelia } from 'aurelia-framework';
 import { store } from './redux'
 // we want font-awesome to load as soon as possible to show the fa-spinner
 import '../styles/styles.css';
